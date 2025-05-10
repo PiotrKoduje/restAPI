@@ -22,6 +22,17 @@ router.route('/seats').post((req, res) => {
   if (!day || !seat || !client || !email) {
     return res.status(400).json({ message: 'All fields are required'});
   }
+
+  const seatsOfDay = db.seats.filter(reservation => reservation.day === day);
+  const isSeatBusy = seatsOfDay.some(reservation => reservation.seat === seat);
+  if (isSeatBusy) {
+    return res.status(400).json({ message: 'The slot is already taken...'});
+  }
+
+  if (seat < 1 || seat > 50){
+    return res.status(400).json({ message: 'There are only 50 seats'});
+  }
+  
   const newSeat = {
     id: uuidv4(),
     day,
