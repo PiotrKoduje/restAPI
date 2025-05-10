@@ -44,15 +44,15 @@ router.route('/testimonials').post((req, res) => {
 router.route('/testimonials/:id').put((req, res) => {
   const  id  = req.params.id;
   const { author, text } = req.body;
-  if (!author || !text) {
-    return res.status(400).json({ message: 'Author and text are required'});
-  }
+  // if( !author && !text){
+  //   return res.status(204).json({message: 'No content'});
+  // }
   const index = db.testimonials.findIndex(testimonial => testimonial.id == id);
   if (index === -1){
     return res.status(404).json({ message: 'Testimonial not found' });
   } else {
-    db.testimonials[index].author = author;
-    db.testimonials[index].text = text;
+    if (author !== undefined) db.testimonials[index].author = author; 
+    if (text !== undefined) db.testimonials[index].text = text; 
   }
   res.status(200).json({ message: 'OK'});
 });

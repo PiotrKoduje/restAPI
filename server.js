@@ -4,7 +4,10 @@ const { v4: uuidv4 } = require('uuid');
 const db = require('./db');
 
 // import routes
-const testimonialsRoutes = require('./routes/testimonials.routes')
+const testimonialsRoutes = require('./routes/testimonials.routes');
+const concertsRoutes = require('./routes/concerts.routes');
+const seatsRoutes = require('./routes/seats.routes');
+
 
 
 const app = express();
@@ -15,7 +18,9 @@ app.use(express.json());
 app.use(cors());
 
 
-app.use(testimonialsRoutes);
+app.use('/api', testimonialsRoutes);
+app.use('/api', concertsRoutes);
+app.use('/api', seatsRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found...'});
