@@ -9,7 +9,7 @@ import SeatChooser from './../SeatChooser/SeatChooser';
 const OrderTicketForm = () => {
   const dispatch = useDispatch();
   const requests = useSelector(getRequests);
-  console.log(requests);
+  //console.log(requests);
 
   const [order, setOrder] = useState({
     client: '',
@@ -39,7 +39,6 @@ const OrderTicketForm = () => {
 
     if(order.client && order.email && order.day && order.seat) {
       await dispatch(addSeatRequest(order));
-      await dispatch(loadSeatsRequest());
       setOrder({
         client: '',
         email: '',

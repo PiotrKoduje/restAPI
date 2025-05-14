@@ -44,9 +44,9 @@ router.route('/testimonials').post((req, res) => {
 router.route('/testimonials/:id').put((req, res) => {
   const  id  = req.params.id;
   const { author, text } = req.body;
-  // if( !author && !text){
-  //   return res.status(204).json({message: 'No content'});
-  // }
+  if( !author && !text){
+    return res.status(200).json({message: 'No content'});
+  }
   const index = db.testimonials.findIndex(testimonial => testimonial.id == id);
   if (index === -1){
     return res.status(404).json({ message: 'Testimonial not found' });
