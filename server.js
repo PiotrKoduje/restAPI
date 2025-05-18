@@ -39,17 +39,19 @@ app.use((req, res) => {
 });
 
 // CONNECT TO MONGOOSE
-mongoose.connect('mongodb://0.0.0.0:27017/NewWaveDB', { useNewUrlParser: true });
+const uri = 'mongodb+srv://Peter:Programming445@cluster0.aqu9lhb.mongodb.net/NewWaveDB?retryWrites=true&w=majority&appName=Cluster0';
+mongoose.connect(uri, { useNewUrlParser: true });
 const db = mongoose.connection;
 db.once('open', () => {
-  console.log('Connected to the database');
+  console.log('Connected to MongoDB Atlas');
 });
 db.on('error', err => console.log('Error ' + err));
 
 const server = app.listen(process.env.PORT || 8000, () => {
-  console.log('Server is running on port: 8000');
+  console.log('Server is running..');
 });
 
+// WEBSOCKETS
 const io = socket(server);
 
 io.on('connection', async (socket) => {
